@@ -1,8 +1,8 @@
 class Node():
     def __init__(self):
-        self.name
+        self.name = ""
         self.edges = {}
-        self.tags = []
+        self.tags = {}
 
     def setName(self, name):
         self.name = name

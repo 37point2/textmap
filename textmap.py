@@ -4,6 +4,7 @@ import multiprocessing
 import nlp
 from graph import Graph
 
+
 def process_text((file, text)):
     tags = []
 
@@ -11,7 +12,7 @@ def process_text((file, text)):
     [tags.append(x) for x in nlp.trigrams(text)]
     [tags.append(x) for x in nlp.extract_named_entities(text)]
 
-    return {file: tags}
+    return (file, tags)
 
 def main(dir):
     print "yolo"
@@ -33,18 +34,23 @@ def main(dir):
     results = pool.map(process_text, jobs)
 
     for result in results:
-        print result
-        for file,tags in result:
-            print file, tags
-            for tag in tags:
-                try:
-                    node = graph.getOrAddNode(tag)
-                    node.addTag(file)
-                    graph.updateEdges(node,tag)
-                except Exception as e:
-                    print e
+        file, tags = result
+        edges = [' '.join(tag) if not isinstance(tag, str) else tag for tag in tags]
+        for tag in tags:
+            if not isinstance(tag, str):
+                name = ' '.join(tag)
+            else:
+                name = tag
+            try:
+                node = graph.getOrAddNode(name)
+                node.addTag(file)
+                for edge in edges:
+                    graph.updateEdges(node,edge)
+            except Exception as e:
+                print e
 
-    print graph.getNodes()
+    for node in  graph.getNodes():
+        print node.name, node.getEdges(), node.getTags()
 
 
 if __name__ == "__main__":
