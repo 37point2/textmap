@@ -35,5 +35,8 @@ class Graph():
     def getNodes(self):
         return self.nodes
 
+    def getNodeIndex(self, node):
+        return self.name_index[node.getName()]
+
     def getIndex(self):
         return self.name_index
