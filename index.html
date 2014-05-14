@@ -28,13 +28,13 @@
 
 <script>
 
-var width = 960,
-    height = 800;
+var width = 2000,
+    height = 1500;
 
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
-    .gravity(.05)
+    .gravity(.2)
     .charge(-120)
     .linkDistance(30)
     .size([width, height]);
@@ -58,7 +58,7 @@ d3.json("/data.json", function(error, graph) {
       .data(graph.nodes)
     .enter().append("circle")
       .attr("class", "node")
-      .attr("r", 5)
+      .attr("r", function(d) { return d.weight; })
       .call(force.drag);
 
   node.append("title")

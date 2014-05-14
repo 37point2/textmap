@@ -55,9 +55,11 @@ def main(dir):
     edges = []
 
     for node in graph.getNodes():
-        nodes.append({'name':node.getName(),'id':graph.getNodeIndex(node)})
+        weight = 0
         for k, v in node.getEdges().items():
+            weight+= int(v)
             edges.append({'source':graph.getNodeIndex(node),'target':k, 'weight':v})
+        nodes.append({'name':node.getName(),'id':graph.getNodeIndex(node), 'weight':weight})
 
     out = open('data.json','w')
     data = json.dumps({'nodes':nodes,'links':edges})
