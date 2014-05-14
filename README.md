@@ -2,14 +2,10 @@ Textmap
 =======
 Map relationships between text files
 
-Usage
-===
-
+### Usage
 ```sh
 python textmap.py $dir
 ```
 
-Requires
-===
-
+### Requires
 [NLTK](http://www.nltk.org/)
