@@ -36,6 +36,8 @@ def main(dir):
 
     results = pool.map(process_text, jobs)
 
+    pool.terminate()
+
     for result in results:
         file, tags = result
         edges = [' '.join(tag) if not isinstance(tag, str) else tag for tag in tags]
